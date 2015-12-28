@@ -1,0 +1,80 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf130
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red65\green204\blue69;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs36 \cf0 Algorithms\
+
+\fs24 \
+
+\fs28 Geometria computazionale
+\fs24 \
+- Angle-Left : dati due segmenti con un punto in comune calcola se il secondo \'e8 ruotato in senso orario o antiorario rispetto al primo. Utilizza il prodotto vettoriale. O(1)\
+\
+-Segment Intersect : dati due segmenti controlla se essi si intersecano, utilizza angle-left al suo interno. Effettua una serie di controlli tra le posizioni dei 4 vertici per decidere se il vettore p1p2 si interseca con il vettore p3p4.O(1)\
+\
+- Any-segment-intersect: dato un gruppo di segmenti controlla se tra di loro vi \'e8 qualcuno che si interseca, utilizza segment intersect al suo interno. Inoltre fa uso di una tecnica chiamata swaping O(n log n)\
+\
+- algoritmo di graham: calcola l\'92involucro convesso di un insieme di punti. utilizza angle-left .O(n log n)\
+\
+- algoritmo di jarvis: calcola l\'92involucro  convesso di un insieme di punti. O(nh), h numero di punti nell\'92involucro\
+\
+
+\fs28 Pattern Matching\
+
+\fs24 - Ingenuo: ha un pattern e una stringa su cui cercare il pattern, confronta i caratteri del patter con i caratteri nella stringa scorrendola in modo lineare dal primo carattere all\'92ultimo. O(mn) con m lunghezza del pattern e n lunghezza della stringa. Implementazione con e senza sentinella\
+\
+- Funzione-prefisso: Algoritmo di preelaborazione su una stringa, calcola le lunghezze dei prefissi della stringa trovati ripetuti in ogni posizione della stringa stessa. O(n)\
+\
+- Algoritmo di matching esatto in tempo lineare: utilizza la funzioni-prefisso con il patternt P concatenato con una sentinella e concatenato con il testo T (P$T). Esegue poi la funzione prefisso salvandosi i prefissi ripetuti di lunghezza pari a quella del pattern all\'92interno del testo. O(m+n)\
+\
+- Knuth-morris-pratt:
+\f1\fs22 \cf2 \CocoaLigature0  
+\f0\fs24 \cf0 allinea P con T, quanto trova un mismatch calcola spostamenti di P in modo da non ripete il confronto di caratteri gi\'e0 letti di T. Solitamente i casi sono due: spostamento d[j]=min(\{j\} U \{h | 1<=h<j, j=1+h+pref[1+h]\}). Nel secondo caso se le propriet\'e0 riguardanti j sono verificate si trover\'e0 un occorrenza prima dell'indice j-> indice di mismatch tra l'occorrenza di P precedente allineata in i con il testo T. La nuova occorrenza \'e8 in posizione 1+h in P, quindi potr\'f2 risparmiare alcuni confronti. Se non \'e8 verificata l'occorrenza sar\'e0 dopo j e si ricominceranno i confronti da i+j in T con P allineato in essa. Gli spostamenti sono precalcolati nella fase di preelaborazione in relazione a j indice in P. E vengono utilizzati dalla fase di ricerca dell\'92algoritmo che calcola le occorrenze. m confronti negativi, n confronti positivi-> \CocoaLigature1 O(m+n)\
+\
+- Booyer-Moore: \CocoaLigature0 confronta i caratteri del pattern da destra a sinistra iniziando con P allineato in prima posizione di T. Quando trova un mismatch in j vi sono due casi di spostamento del pattern successivo in cui pu\'f2 trovare l'occorrenza successiva sovrapposta a quella attuale: spostamento 1< h <j o j<=h<m. Il primo caso si verifica nel caso Pr[1,m-j]=Pr[1+h,m-j+h] con Pr P rovesciato. Equivale a dire che prefr[h+1]=m-j -> j=m-prefr[1+h] quindi solo in quel caso si avr\'e0 uno spostamento <j. Nel secondo caso lo spostamento sar\'e0 j<h<m se P[1,m-h]=P[h+1,m] -> P e Pr hanno bordo lung m-h per cui pu\'f2 esserci un'occorrenza sono per uno spostameto prefr[1+h]=m-h -> h=m-prefr[1+h]. O()\
+\
+- Shift-And: Utilizza confronti tra bit. Utilizza una matrice M[i][j], il cui valore di ogni elemento \'e8 1 se P[1\'85j] si ripete in posizione T[i-j+1\'85i]. Utilizza per il calcolo vettori booleani di lunghezza del pattern Ux, in cui x \'e8 un carattere del pattern. Un elemento di un vettore Ux \'e8 pari ad uno se x si trova nel pattern nella posizione corrispondente a quella esaminata. Utilizza una funzione bit-shift che preso un vettore di bit restituisce lo stesso vettore con i bit spostati a destra, perdendo l\'92ultimo elemento e inserendo un 1 a sinistra. Per il calcolo dei valori di ogni riga della matrice utilizza una funzione M[i]=AND(Bit-shift(M[-1]),UT[i]) con T[i] elemento in posizione i del testo. La prima riga ha tutti valori 0 tranne il primo elemento che sar\'e0 uno solo se T[1]=P[1]. O(nm)->O(n) se pattern pi\'f9 corto della lunghezza di una parola di memoria\
+\CocoaLigature1 \
+
+\fs28 Ordinamento\
+
+\fs24 - Insertion sort: l\'92ordinamento \'e8 creato inserendo gli elementi nell\'92ordine giusto. Prende in ingresso un array di elementi O(n^2)\
+\
+-heapsort: utilizza una struttura heap con una particolare propriet\'e0 (parent(A[i])>=A[i]) per ordinare l\'92array di elementi O(n lgn)\
+\
+-quicksort: prende un elemento e divide l\'92array in elementi pi\'f9 grandi di lui, posti successivamente, e pi\'f9 piccoli posti precedentemente. Poi esegue la stesa procedura sui due sotto array trovati in maniera ricorsiva. tempo medio O(n log n) tempo pessimo O(n^2)\
+\
+-mergesort: divide l\'92array a met\'e0  in maniera ricorsiva, poi riordina ogni met\'e0 e le riunisce in un unico array ordinato utilizzando la funzione merge. La divisione arriva ad avere array monodimensionali che poi ordiner\'e0 con il merge riottenendo l\'92array di partenza ordinato. O(n log n)\
+\
+-countingsort: prende in ingresso un valore k per cui si ha che gli elementi dell\'92array siano valori interi compresi tra 0 e k non compreso. Realizza un vettore che contiene il numero di valori relativi a tutti i valori nell\'92array. Lo utilizza poi per realizzare l\'92ordinamento dell\'92array O(k) \
+\
+
+\fs28 Strutture Dati\
+
+\fs24 Implementazione di strutture dati e alcuni metodi su di esse.\
+- Heap\
+- Lista, Pila, Coda\
+- Albero binario\
+- Albero figlio sinistro - fratello destro\
+- Albero Rosso-Nero\
+- Grafi\
+\
+
+\fs28 Grafi\
+
+\fs24 Implementazione in due modi con dimensione del grafo fissa:\
+- Lista delle adiancenze: Array di liste concatenate, una lista per ogni nodo, ogni lista contiene i nodi adiacenti al corrispettivo nodo\
+- Matrice delle adiacenze: lista rappresentata come una matrice booleana, elemento ha valore 1 se un elemento \'e8 adiacente ad un altro.\
+Su queste due tipologie vengono implementati vari metodi:\
+- BFS: visita in ampiezza a partire da un nodo: O(m+n)\
+- DFS: visita in profondit\'e0 a partire da un nodo: O(m+n)\
+- TopologicSearch: ordine topologico di visita dei nodi O(m+n)\
+- Componenti Fortemente Connesse: O(m+n)\
+\
+
+\fs28 Matrici
+\fs24 \
+Implementa una matrice attraverso un array e illustra le principali operazioni che si possono eseguire sulle matrici.\
+}
