@@ -37,7 +37,7 @@ public:
             return true;
         else
         {
-            if(x==getx())
+            if(x==p.getx())
             {
                 if(y<p.gety())
                     return true;
