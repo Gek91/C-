@@ -25,7 +25,7 @@ public:
         {
             if(i==s.geti())
             {
-                if(f<getf())
+                if(f<s.getf())
                     return true;
                 else
                     return false;
@@ -38,7 +38,7 @@ public:
     bool operator==(const Segmento &s) //Operatore <
     {
         if(i==s.geti())
-            if(f==getf())
+            if(f==s.getf())
                 return true;
         return false;
     }
