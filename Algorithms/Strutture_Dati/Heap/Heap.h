@@ -11,6 +11,7 @@ public:
     Heap(T array[],int size);        //costruttore con specificata la grandezza dell'heap
     ~Heap(){free(A); }; //distruttore
     int getsize() const {return n;};
+    void setsize(int size) { n = size; };
     T elem(int i) const {return A[i];};
     int parent(int i) const ;   //ritorna l'indice del padre del nodo
     int left(int i) const;  //ritorna il figlio sinistro del nodo
