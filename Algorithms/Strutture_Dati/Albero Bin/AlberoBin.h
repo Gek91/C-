@@ -234,7 +234,7 @@ void AlberoBin<T>::deleteElem(T k)
         AlberoBinElem<T>* y;
         AlberoBinElem<T>* x;
         //z ha almeno un figlio y= successore di z altrimenti y=z
-        if(z->getright()!=0 || z->getleft()!=0)
+        if(z->getright()==0 && z->getleft()==0)
             y=z;
         else
             y=threeSuccessor(z);
@@ -262,9 +262,6 @@ void AlberoBin<T>::deleteElem(T k)
         {
             z->setvalue(y->getvalue());
             //
-            z->setright(y->getright());
-            z->setleft(y->getleft());
-            z->setp(y->getp());
         }
         y->setp(0);
         y->setleft(0);
